@@ -55,8 +55,6 @@ h1 {
   align-items: stretch;
 }
 
-/* SECTIONS */
-
 .section {
   background: #fff;
   padding: 22px;
@@ -65,7 +63,7 @@ h1 {
   min-width: 0;
 }
 
-/* LEFT COLUMN */
+/* TEXT COLUMN */
 
 .text-column {
   display: flex;
@@ -79,7 +77,6 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 0;
 }
 
 .label {
@@ -130,7 +127,7 @@ button:hover {
   margin-top: 16px;
 }
 
-/* IMAGE COLUMN */
+/* IMAGE */
 
 .image-section {
   display: flex;
@@ -186,7 +183,7 @@ footer {
   margin-top: 35px;
 }
 
-/* COLLAPSIBLE GALLERY */
+/* GALLERY */
 
 .gallery-dropdown summary {
   cursor: pointer;
@@ -224,6 +221,10 @@ footer {
   margin-top: 20px;
 }
 
+.gallery-item {
+  min-width: 0;
+}
+
 .gallery-item img {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -232,13 +233,11 @@ footer {
   border-radius: 6px;
   cursor: pointer;
   display: block;
+  transition: outline .15s;
 }
 
-.gallery-item button {
-  width: 100%;
-  margin-top: 5px;
-  padding: 7px;
-  font-size: 11px;
+.gallery-item img:hover {
+  opacity: .85;
 }
 
 .gallery-item.selected img {
@@ -297,14 +296,6 @@ footer {
   .name {
     font-size: 32px;
   }
-
-  .image-frame {
-    max-width: 100%;
-  }
-
-  .main-button {
-    margin-top: 0;
-  }
 }
 
 </style>
@@ -322,15 +313,13 @@ footer {
   </div>
 </header>
 
-<!-- MAIN THREE-AREA LAYOUT -->
+<!-- MAIN LAYOUT -->
 
 <div class="results-grid">
 
-  <!-- BUSINESS TYPE AND BRAND NAME STACKED -->
+  <!-- BUSINESS AND NAME -->
 
   <div class="text-column">
-
-    <!-- BUSINESS TYPE -->
 
     <div class="section">
 
@@ -347,8 +336,6 @@ footer {
       </div>
 
     </div>
-
-    <!-- BRAND NAME -->
 
     <div class="section">
 
@@ -374,7 +361,7 @@ footer {
 
   </div>
 
-  <!-- SQUARE INSPIRATION IMAGE -->
+  <!-- INSPIRATION IMAGE -->
 
   <div class="section image-section">
 
@@ -396,13 +383,13 @@ footer {
 
 </div>
 
-<!-- GENERATE EVERYTHING -->
+<!-- GENERATE ALL -->
 
 <button class="main-button" onclick="generateAll()">
   ✦ GENERATE MY BRAND ✦
 </button>
 
-<!-- IMAGE LIBRARY -->
+<!-- IMAGE GALLERY -->
 
 <div class="section">
 
@@ -422,7 +409,7 @@ footer {
 
     <p class="note">
       Your personal collection of color inspiration.
-      Select any image to use it in your brand challenge.
+      Click any image to use it in your brand challenge.
     </p>
 
     <div class="gallery" id="gallery">
@@ -440,6 +427,8 @@ footer {
 </div>
 
 <script>
+
+// BUSINESS TYPES
 
 const businesses = [
   "Luxury Skincare",
@@ -474,20 +463,96 @@ const businesses = [
   "Wine Bar"
 ];
 
+// SINGLE-WORD BRAND NAMES
+
+const singleWords = [
+  "Morrow",
+  "Olive",
+  "Sunday",
+  "Velvet",
+  "Golden",
+  "Willow",
+  "Clover",
+  "Solace",
+  "Honey",
+  "Forma",
+  "Bloom",
+  "Fable",
+  "Marlow",
+  "Sonder",
+  "Luna",
+  "Arden",
+  "Sage",
+  "Noire",
+  "Ever",
+  "June",
+  "Aurelia",
+  "Alora",
+  "Novelle",
+  "Amora",
+  "Elowen",
+  "Vesper",
+  "Aster",
+  "Opaline",
+  "Lumina",
+  "Cove",
+  "Ovelle",
+  "Maison",
+  "Sunday",
+  "Floré",
+  "Solene",
+  "Aure",
+  "Maven",
+  "Solis",
+  "Aura",
+  "Monroe"
+];
+
+// TWO-WORD BRAND NAME COMPONENTS
+
 const firstWords = [
-  "Morrow", "Olive", "Sunday", "Velvet",
-  "Maison", "Golden", "Willow", "Clover",
-  "Studio", "Solace", "Honey", "Forma",
-  "Bloom", "Fable", "Marlow", "Sonder",
-  "Luna", "Arden", "Sage", "Noire",
-  "Ever", "June", "Aurelia"
+  "Morrow",
+  "Olive",
+  "Sunday",
+  "Velvet",
+  "Maison",
+  "Golden",
+  "Willow",
+  "Clover",
+  "Studio",
+  "Solace",
+  "Honey",
+  "Forma",
+  "Bloom",
+  "Fable",
+  "Marlow",
+  "Sonder",
+  "Luna",
+  "Arden",
+  "Sage",
+  "Noire",
+  "Ever",
+  "June",
+  "Aurelia"
 ];
 
 const secondWords = [
-  "House", "Studio", "Collective", "Society",
-  "Atelier", "& Co.", "Works", "Supply",
-  "Theory", "Living", "Label", "Market",
-  "& Form", "Corner", "Goods", "Edit"
+  "House",
+  "Studio",
+  "Collective",
+  "Society",
+  "Atelier",
+  "& Co.",
+  "Works",
+  "Supply",
+  "Theory",
+  "Living",
+  "Label",
+  "Market",
+  "& Form",
+  "Corner",
+  "Goods",
+  "Edit"
 ];
 
 // YOUR 50 GITHUB IMAGES
@@ -497,7 +562,18 @@ const images = Array.from(
   (_, index) => index + 1
 );
 
+// IMAGE FILE EXTENSIONS TO TRY
+
+const imageExtensions = [
+  "png",
+  "jpg",
+  "jpeg",
+  "webp"
+];
+
 let selectedImage = null;
+
+// RANDOM PICKER
 
 function pick(array) {
   return array[
@@ -508,18 +584,67 @@ function pick(array) {
 // RANDOMIZE BUSINESS
 
 function randomBusiness() {
+
   document.getElementById("business").textContent =
     pick(businesses);
+
 }
 
 // RANDOMIZE BRAND NAME
+// 45% chance of one word
+// 55% chance of two words
 
 function randomName() {
-  document.getElementById("brand").textContent =
-    pick(firstWords) + " " + pick(secondWords);
+
+  let name;
+
+  if (Math.random() < 0.45) {
+
+    name = pick(singleWords);
+
+  } else {
+
+    name = pick(firstWords) + " " + pick(secondWords);
+
+  }
+
+  document.getElementById("brand").textContent = name;
+
 }
 
-// DISPLAY IMAGE
+// LOAD IMAGE WITH EXTENSION FALLBACK
+
+function loadImage(img, number) {
+
+  let extensionIndex = 0;
+
+  function tryNextExtension() {
+
+    if (extensionIndex >= imageExtensions.length) {
+
+      img.dataset.failed = "true";
+
+      img.onerror = null;
+
+      return;
+
+    }
+
+    const extension = imageExtensions[extensionIndex];
+
+    extensionIndex++;
+
+    img.src = `images/${number}.${extension}`;
+
+  }
+
+  img.onerror = tryNextExtension;
+
+  tryNextExtension();
+
+}
+
+// DISPLAY MAIN IMAGE
 
 function showImage(number) {
 
@@ -529,23 +654,20 @@ function showImage(number) {
 
   const img = document.createElement("img");
 
-  img.src = `images/${number}.png`;
-
   img.alt = `Color inspiration ${number}`;
 
-  img.onerror = function() {
+  img.loading = "eager";
 
-    frame.innerHTML =
-      `<div class="empty">
-        Image ${number}.png could not be loaded.
-        Check your images folder.
-      </div>`;
+  img.decoding = "async";
 
-  };
+  img.fetchPriority = "high";
+
+  loadImage(img, number);
 
   frame.appendChild(img);
 
-  renderGallery();
+  updateSelectedImage();
+
 }
 
 // RANDOMIZE IMAGE
@@ -566,7 +688,7 @@ function randomImage() {
 
 }
 
-// GENERATE ALL THREE
+// GENERATE EVERYTHING
 
 function generateAll() {
 
@@ -578,7 +700,7 @@ function generateAll() {
 
 }
 
-// COPY BRAND NAME
+// COPY NAME
 
 function copyName() {
 
@@ -593,7 +715,35 @@ function copyName() {
 
 }
 
-// IMAGE GALLERY
+// UPDATE GALLERY SELECTION
+// Does not reload any gallery images
+
+function updateSelectedImage() {
+
+  document.querySelectorAll(".gallery-item").forEach(item => {
+
+    const number = Number(item.dataset.number);
+
+    item.classList.toggle(
+      "selected",
+      number === selectedImage
+    );
+
+  });
+
+}
+
+// SELECT IMAGE BY CLICKING IT
+
+function selectImage(number) {
+
+  selectedImage = number;
+
+  showImage(number);
+
+}
+
+// BUILD GALLERY ONCE
 
 function renderGallery() {
 
@@ -601,57 +751,45 @@ function renderGallery() {
 
   gallery.innerHTML = "";
 
+  const fragment = document.createDocumentFragment();
+
   images.forEach(number => {
 
     const item = document.createElement("div");
 
     item.className = "gallery-item";
 
-    if (number === selectedImage) {
-      item.classList.add("selected");
-    }
+    item.dataset.number = number;
 
     const preview = document.createElement("img");
-
-    preview.src = `images/${number}.png`;
 
     preview.alt = `Inspiration image ${number}`;
 
     preview.loading = "lazy";
 
-    preview.onerror = function() {
-      item.remove();
-    };
+    preview.decoding = "async";
+
+    preview.fetchPriority = "low";
+
+    preview.dataset.number = number;
+
+    loadImage(preview, number);
 
     preview.onclick = function() {
 
-      selectedImage = number;
-
-      showImage(number);
-
-    };
-
-    const button = document.createElement("button");
-
-    button.textContent = "Select image";
-
-    button.className = "small-btn";
-
-    button.onclick = function() {
-
-      selectedImage = number;
-
-      showImage(number);
+      selectImage(number);
 
     };
 
     item.appendChild(preview);
 
-    item.appendChild(button);
-
-    gallery.appendChild(item);
+    fragment.appendChild(item);
 
   });
+
+  gallery.appendChild(fragment);
+
+  updateSelectedImage();
 
 }
 
