@@ -1,0 +1,455 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Randomizer</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #f5f2ed;
+  color: #292821;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 45px 22px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+header p {
+  color: #898477;
+  letter-spacing: 3px;
+  font-size: 11px;
+}
+
+h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(36px, 7vw, 58px);
+  font-weight: normal;
+  margin: 15px 0;
+}
+
+.subtitle { color: #817b70; }
+
+.section {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.label {
+  color: #a18d72;
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+.result {
+  font-family: Georgia, serif;
+  font-size: 30px;
+  margin: 0;
+}
+
+.name {
+  font-size: 38px;
+}
+
+button {
+  background: #34372e;
+  color: white;
+  border: none;
+  padding: 14px 22px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 13px;
+  transition: .2s;
+}
+
+button:hover { background: #777b68; }
+
+.small-btn {
+  padding: 9px 14px;
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.main-button {
+  width: 100%;
+  padding: 19px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin: 10px 0 25px;
+}
+
+.image-frame {
+  background: #eeeae3;
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 250px;
+  display: grid;
+  place-items: center;
+}
+
+.image-frame img {
+  width: 100%;
+  max-height: 550px;
+  object-fit: contain;
+  display: block;
+}
+
+.empty {
+  color: #938d82;
+  padding: 50px 15px;
+  text-align: center;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.gallery-item {
+  position: relative;
+}
+
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: #eeeae3;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.gallery-item button {
+  width: 100%;
+  margin-top: 5px;
+  padding: 7px;
+  font-size: 11px;
+}
+
+input[type="file"] { display: none; }
+
+.upload {
+  display: inline-block;
+  padding: 14px 20px;
+  background: #eae6df;
+  color: #34372e;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.note {
+  font-size: 12px;
+  color: #999184;
+  line-height: 1.6;
+}
+
+footer {
+  text-align: center;
+  color: #aaa294;
+  font-size: 11px;
+  margin-top: 35px;
+}
+
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <p>YOUR CREATIVE PLAYGROUND</p>
+  <h1>Brand Randomizer</h1>
+  <div class="subtitle">A little inspiration for your next big idea.</div>
+</header>
+
+<div class="section">
+  <div class="label">01 — BUSINESS TYPE</div>
+  <h2 class="result" id="business">Waiting for inspiration...</h2>
+  <div class="actions">
+    <button class="small-btn" onclick="randomBusiness()">↻ Randomize business</button>
+  </div>
+</div>
+
+<div class="section">
+  <div class="label">02 — BRAND NAME</div>
+  <h2 class="result name" id="brand">Your next brand</h2>
+  <div class="actions">
+    <button class="small-btn" onclick="randomName()">↻ Randomize name</button>
+    <button class="small-btn" onclick="copyName()">Copy name</button>
+  </div>
+</div>
+
+<div class="section">
+  <div class="label">03 — COLOR INSPIRATION</div>
+
+  <div class="image-frame" id="imageFrame">
+    <div class="empty">Your inspiration image will appear here.</div>
+  </div>
+
+  <div class="actions">
+    <button class="small-btn" onclick="randomImage()">↻ Randomize image</button>
+  </div>
+</div>
+
+<button class="main-button" onclick="generateAll()">
+  ✦ GENERATE MY BRAND ✦
+</button>
+
+<div class="section">
+  <div class="label">04 — MY IMAGE LIBRARY</div>
+  <h2 class="result">Your inspiration gallery</h2>
+
+  <p class="note">
+    Upload your own 2000 × 2000 images containing your color palettes.
+    They will be available in your gallery on this browser.
+  </p>
+
+  <label class="upload" for="imageUpload">
+    + ADD YOUR IMAGES
+  </label>
+
+  <input type="file" id="imageUpload" accept="image/*" multiple>
+
+  <div class="gallery" id="gallery">
+    <p class="note">No images uploaded yet.</p>
+  </div>
+</div>
+
+<footer>
+  MADE FOR CREATIVE MINDS ♡
+</footer>
+
+</div>
+
+<script>
+const businesses = [
+  "Luxury Skincare",
+  "Independent Coffee Shop",
+  "Boutique Fashion Label",
+  "Artisan Bakery",
+  "Interior Design Studio",
+  "Jewelry Brand",
+  "Perfume House",
+  "Wellness Studio",
+  "Pet Accessories",
+  "Organic Food Brand",
+  "Creative Agency",
+  "Boutique Hotel",
+  "Flower Shop",
+  "Candle Brand",
+  "Specialty Tea Shop",
+  "Fitness Studio",
+  "Home Decor Brand",
+  "Bookstore",
+  "Restaurant",
+  "Haircare Brand",
+  "Ceramics Studio",
+  "Travel Agency",
+  "Chocolate Brand",
+  "Vintage Clothing Store",
+  "Natural Cosmetics",
+  "Furniture Brand",
+  "Photography Studio",
+  "Stationery Brand",
+  "Sustainable Fashion",
+  "Wine Bar"
+];
+
+const firstWords = [
+  "Morrow", "Olive", "Sunday", "Velvet",
+  "Maison", "Golden", "Willow", "Clover",
+  "Studio", "Solace", "Honey", "Forma",
+  "Bloom", "Fable", "Marlow", "Sonder",
+  "Luna", "Arden", "Sage", "Noire",
+  "Sunday", "Ever", "June", "Aurelia"
+];
+
+const secondWords = [
+  "House", "Studio", "Collective", "Society",
+  "Atelier", "& Co.", "Works", "Supply",
+  "Theory", "Living", "Label", "Market",
+  "& Form", "Corner", "Goods", "Edit"
+];
+
+let images = [];
+let selectedImage = null;
+
+function pick(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+function randomBusiness() {
+  document.getElementById("business").textContent = pick(businesses);
+}
+
+function randomName() {
+  document.getElementById("brand").textContent =
+    pick(firstWords) + " " + pick(secondWords);
+}
+
+function randomImage() {
+  if (images.length === 0) {
+    alert("Upload some inspiration images first!");
+    return;
+  }
+
+  let available = images.filter(img => img.id !== selectedImage);
+
+  if (available.length === 0) available = images;
+
+  const chosen = pick(available);
+  selectedImage = chosen.id;
+
+  document.getElementById("imageFrame").innerHTML =
+    `<img src="${chosen.data}" alt="Brand color inspiration">`;
+  renderGallery();
+}
+
+function generateAll() {
+  randomBusiness();
+  randomName();
+  randomImage();
+}
+
+function copyName() {
+  const name = document.getElementById("brand").textContent;
+  navigator.clipboard.writeText(name)
+    .then(() => alert("Brand name copied!"))
+    .catch(() => alert("Could not copy. Please select the name manually."));
+}
+
+// Store uploaded images in this browser using IndexedDB.
+
+let db;
+
+const request = indexedDB.open("BrandRandomizer", 1);
+
+request.onupgradeneeded = function(event) {
+  const database = event.target.result;
+  database.createObjectStore("images", {
+    keyPath: "id",
+    autoIncrement: true
+  });
+};
+
+request.onsuccess = function(event) {
+  db = event.target.result;
+  loadImages();
+};
+
+request.onerror = function() {
+  alert("Could not open image storage.");
+};
+
+function loadImages() {
+  const transaction = db.transaction("images", "readonly");
+  const store = transaction.objectStore("images");
+
+  store.getAll().onsuccess = function(event) {
+    images = event.target.result;
+    renderGallery();
+  };
+}
+
+document.getElementById("imageUpload").addEventListener("change",
+function(event) {
+  const files = Array.from(event.target.files);
+
+  files.forEach(file => {
+    if (!file.type.startsWith("image/")) return;
+
+    const transaction = db.transaction("images", "readwrite");
+    transaction.objectStore("images").add({
+      name: file.name,
+      data: file
+    });
+
+    transaction.oncomplete = loadImages;
+  });
+
+  event.target.value = "";
+});
+
+function renderGallery() {
+  const gallery = document.getElementById("gallery");
+
+  if (images.length === 0) {
+    gallery.innerHTML =
+      '<p class="note">No images uploaded yet.</p>';
+    return;
+  }
+
+  gallery.innerHTML = "";
+
+  images.forEach(img => {
+    const item = document.createElement("div");
+    item.className = "gallery-item";
+
+    const preview = document.createElement("img");
+    preview.src = URL.createObjectURL(img.data);
+    preview.alt = img.name;
+    preview.title = "Click to select this image";
+
+    preview.onclick = function() {
+      selectedImage = img.id;
+      document.getElementById("imageFrame").innerHTML = "";
+      const large = document.createElement("img");
+      large.src = URL.createObjectURL(img.data);
+      large.alt = img.name;
+      document.getElementById("imageFrame").appendChild(large);
+      renderGallery();
+    };
+
+    const remove = document.createElement("button");
+    remove.textContent = "Remove";
+    remove.className = "small-btn";
+
+    remove.onclick = function() {
+      if (!confirm("Remove this image from your gallery?")) return;
+
+      const transaction = db.transaction("images", "readwrite");
+      transaction.objectStore("images").delete(img.id);
+      transaction.oncomplete = function() {
+        if (selectedImage === img.id) {
+          selectedImage = null;
+          document.getElementById("imageFrame").innerHTML =
+            '<div class="empty">Your inspiration image will appear here.</div>';
+        }
+        loadImages();
+      };
+    };
+
+    item.appendChild(preview);
+    item.appendChild(remove);
+    gallery.appendChild(item);
+  });
+}
+
+generateAll();
+</script>
+</body>
+</html>
