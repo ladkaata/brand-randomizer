@@ -19,47 +19,51 @@ body {
 }
 
 .container {
-  max-width: 1100px;
+  max-width: 1000px;
   margin: auto;
-  padding: 30px 22px;
+  padding: 12px 18px;
 }
+
+/* HEADER */
 
 header {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 12px;
 }
 
 header p {
   color: #898477;
-  letter-spacing: 3px;
-  font-size: 11px;
+  letter-spacing: 2px;
+  font-size: 9px;
+  margin: 0 0 4px;
 }
 
 h1 {
   font-family: Georgia, serif;
-  font-size: clamp(36px, 7vw, 58px);
+  font-size: clamp(25px, 4vw, 36px);
   font-weight: normal;
-  margin: 12px 0;
+  margin: 4px 0;
 }
 
 .subtitle {
   color: #817b70;
+  font-size: 11px;
 }
 
 /* MAIN LAYOUT */
 
 .results-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  grid-template-columns: 1fr 0.8fr;
+  gap: 12px;
   align-items: stretch;
 }
 
 .section {
   background: #fff;
-  padding: 22px;
-  border-radius: 12px;
-  margin-bottom: 20px;
+  padding: 13px;
+  border-radius: 9px;
+  margin-bottom: 10px;
   min-width: 0;
 }
 
@@ -68,7 +72,7 @@ h1 {
 .text-column {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 10px;
 }
 
 .text-column .section {
@@ -81,21 +85,21 @@ h1 {
 
 .label {
   color: #a18d72;
-  font-size: 11px;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  margin-bottom: 7px;
   font-weight: bold;
 }
 
 .result {
   font-family: Georgia, serif;
-  font-size: 29px;
+  font-size: 22px;
   margin: 0;
   overflow-wrap: anywhere;
 }
 
 .name {
-  font-size: 36px;
+  font-size: 27px;
 }
 
 /* BUTTONS */
@@ -104,11 +108,11 @@ button {
   background: #34372e;
   color: white;
   border: none;
-  padding: 14px 22px;
+  padding: 9px 13px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 13px;
-  transition: .2s;
+  font-size: 11px;
+  transition: background .2s;
 }
 
 button:hover {
@@ -116,15 +120,15 @@ button:hover {
 }
 
 .small-btn {
-  padding: 9px 12px;
-  font-size: 12px;
+  padding: 7px 10px;
+  font-size: 10px;
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 16px;
+  gap: 6px;
+  margin-top: 10px;
 }
 
 /* IMAGE */
@@ -132,11 +136,12 @@ button:hover {
 .image-section {
   display: flex;
   flex-direction: column;
+  margin-bottom: 0;
 }
 
 .image-frame {
   background: #eeeae3;
-  border-radius: 8px;
+  border-radius: 7px;
   overflow: hidden;
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -153,37 +158,42 @@ button:hover {
 
 .empty {
   color: #938d82;
-  padding: 20px 15px;
+  padding: 12px;
   text-align: center;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 /* GENERATE BUTTON */
 
 .main-button {
   width: 100%;
-  padding: 19px;
-  font-size: 14px;
-  letter-spacing: 2px;
-  margin: 0 0 25px;
+  padding: 11px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  margin: 10px 0;
 }
 
 /* NOTES */
 
 .note {
-  font-size: 12px;
+  font-size: 10px;
   color: #999184;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 footer {
   text-align: center;
   color: #aaa294;
-  font-size: 11px;
-  margin-top: 35px;
+  font-size: 9px;
+  margin-top: 12px;
 }
 
 /* GALLERY */
+
+.gallery-section {
+  padding: 11px 13px;
+  margin-bottom: 0;
+}
 
 .gallery-dropdown summary {
   cursor: pointer;
@@ -191,7 +201,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
+  gap: 10px;
 }
 
 .gallery-dropdown summary::-webkit-details-marker {
@@ -200,12 +210,12 @@ footer {
 
 .gallery-dropdown summary strong {
   font-family: Georgia, serif;
-  font-size: 24px;
+  font-size: 17px;
   font-weight: normal;
 }
 
 .dropdown-arrow {
-  font-size: 24px;
+  font-size: 19px;
   color: #a18d72;
   transition: transform .2s;
 }
@@ -216,9 +226,9 @@ footer {
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-  gap: 12px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+  gap: 8px;
+  margin-top: 12px;
 }
 
 .gallery-item {
@@ -230,7 +240,7 @@ footer {
   aspect-ratio: 1 / 1;
   object-fit: contain;
   background: #eeeae3;
-  border-radius: 6px;
+  border-radius: 5px;
   cursor: pointer;
   display: block;
   transition: outline .15s;
@@ -241,63 +251,139 @@ footer {
 }
 
 .gallery-item.selected img {
-  outline: 3px solid #a18d72;
-  outline-offset: 2px;
+  outline: 2px solid #a18d72;
+  outline-offset: 1px;
+}
+
+.gallery-item img.image-error {
+  display: none;
 }
 
 /* TABLET */
 
 @media (max-width: 700px) {
   .container {
-    padding: 25px 16px;
+    padding: 10px 12px;
   }
 
   .results-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    grid-template-columns: 1fr 0.85fr;
+    gap: 9px;
   }
 
   .section {
-    padding: 16px;
+    padding: 10px;
   }
 
   .result {
-    font-size: 23px;
+    font-size: 18px;
   }
 
   .name {
-    font-size: 29px;
+    font-size: 22px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+    gap: 6px;
   }
 }
 
 /* MOBILE */
 
 @media (max-width: 480px) {
+  .container {
+    padding: 9px;
+  }
+
+  header {
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 27px;
+  }
+
+  .subtitle {
+    font-size: 10px;
+  }
+
+  .results-grid {
+    grid-template-columns: 1fr 0.85fr;
+    gap: 7px;
+  }
+
+  .text-column {
+    gap: 7px;
+  }
+
+  .text-column .section {
+    padding: 9px;
+  }
+
+  .image-section {
+    padding: 9px;
+  }
+
+  .result {
+    font-size: 16px;
+  }
+
+  .name {
+    font-size: 19px;
+  }
+
+  .label {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+
+  button {
+    padding: 7px 8px;
+    font-size: 9px;
+  }
+
+  .small-btn {
+    padding: 6px 7px;
+    font-size: 9px;
+  }
+
+  .actions {
+    gap: 5px;
+    margin-top: 7px;
+  }
+
+  .main-button {
+    margin: 8px 0;
+    padding: 10px;
+  }
+
+  .gallery-section {
+    padding: 9px;
+  }
+
+  .gallery-dropdown summary strong {
+    font-size: 15px;
+  }
+
+  footer {
+    margin-top: 10px;
+  }
+}
+
+/* VERY SMALL SCREENS */
+
+@media (max-width: 340px) {
   .results-grid {
     grid-template-columns: 1fr;
   }
 
-  .text-column {
-    gap: 12px;
-  }
-
-  .text-column .section {
-    padding: 20px;
-  }
-
   .image-section {
-    padding: 18px;
-  }
-
-  .result {
-    font-size: 27px;
-  }
-
-  .name {
-    font-size: 32px;
+    max-width: 240px;
+    width: 100%;
+    margin: 0 auto;
   }
 }
-
 </style>
 </head>
 
@@ -391,7 +477,7 @@ footer {
 
 <!-- IMAGE GALLERY -->
 
-<div class="section">
+<div class="section gallery-section">
 
   <details class="gallery-dropdown">
 
@@ -562,14 +648,28 @@ const images = Array.from(
   (_, index) => index + 1
 );
 
-// IMAGE FILE EXTENSIONS TO TRY
+// IMAGE EXTENSIONS AND FILENAME FORMATS TO TRY
 
 const imageExtensions = [
   "png",
+  "PNG",
   "jpg",
+  "JPG",
   "jpeg",
-  "webp"
+  "JPEG",
+  "webp",
+  "WEBP",
+  "avif",
+  "AVIF",
+  "gif",
+  "GIF",
+  "jfif",
+  "JFIF"
 ];
+
+// Cache successful image paths
+
+const imageCache = new Map();
 
 let selectedImage = null;
 
@@ -612,35 +712,88 @@ function randomName() {
 
 }
 
-// LOAD IMAGE WITH EXTENSION FALLBACK
+// BUILD POSSIBLE IMAGE PATHS
 
-function loadImage(img, number) {
+function getImagePaths(number) {
 
-  let extensionIndex = 0;
+  const paddedNumber = String(number).padStart(2, "0");
 
-  function tryNextExtension() {
+  const formats = [];
 
-    if (extensionIndex >= imageExtensions.length) {
+  imageExtensions.forEach(extension => {
 
-      img.dataset.failed = "true";
+    formats.push(`images/${number}.${extension}`);
+
+    formats.push(`images/${paddedNumber}.${extension}`);
+
+  });
+
+  return [...new Set(formats)];
+
+}
+
+// LOAD IMAGE WITH MULTIPLE FALLBACKS
+
+function loadImage(img, number, onSuccess, onFailure) {
+
+  // Use cached successful path when available
+
+  if (imageCache.has(number)) {
+
+    img.src = imageCache.get(number);
+
+    if (onSuccess) onSuccess();
+
+    return;
+
+  }
+
+  const paths = getImagePaths(number);
+
+  let pathIndex = 0;
+
+  function tryNextPath() {
+
+    if (pathIndex >= paths.length) {
 
       img.onerror = null;
+
+      img.classList.add("image-error");
+
+      if (onFailure) onFailure();
+
+      console.warn(
+        `Image ${number} could not be found. Tried:`,
+        paths
+      );
 
       return;
 
     }
 
-    const extension = imageExtensions[extensionIndex];
+    const path = paths[pathIndex];
 
-    extensionIndex++;
+    pathIndex++;
 
-    img.src = `images/${number}.${extension}`;
+    img.onerror = tryNextPath;
+
+    img.onload = function() {
+
+      imageCache.set(number, path);
+
+      img.onerror = null;
+
+      img.classList.remove("image-error");
+
+      if (onSuccess) onSuccess();
+
+    };
+
+    img.src = path;
 
   }
 
-  img.onerror = tryNextExtension;
-
-  tryNextExtension();
+  tryNextPath();
 
 }
 
@@ -662,9 +815,22 @@ function showImage(number) {
 
   img.fetchPriority = "high";
 
-  loadImage(img, number);
-
   frame.appendChild(img);
+
+  loadImage(
+    img,
+    number,
+    null,
+    function() {
+
+      frame.innerHTML = `
+        <div class="empty">
+          Image ${number} could not be loaded.
+        </div>
+      `;
+
+    }
+  );
 
   updateSelectedImage();
 
@@ -707,11 +873,45 @@ function copyName() {
   const name =
     document.getElementById("brand").textContent;
 
-  navigator.clipboard.writeText(name)
+  if (navigator.clipboard && window.isSecureContext) {
 
-    .then(() => alert("Brand name copied!"))
+    navigator.clipboard.writeText(name)
 
-    .catch(() => alert("Could not copy the name."));
+      .then(() => alert("Brand name copied!"))
+
+      .catch(() => fallbackCopy(name));
+
+  } else {
+
+    fallbackCopy(name);
+
+  }
+
+}
+
+function fallbackCopy(name) {
+
+  const temporary = document.createElement("textarea");
+
+  temporary.value = name;
+
+  document.body.appendChild(temporary);
+
+  temporary.select();
+
+  try {
+
+    document.execCommand("copy");
+
+    alert("Brand name copied!");
+
+  } catch (error) {
+
+    alert("Could not copy the name.");
+
+  }
+
+  temporary.remove();
 
 }
 
@@ -773,7 +973,16 @@ function renderGallery() {
 
     preview.dataset.number = number;
 
-    loadImage(preview, number);
+    loadImage(
+      preview,
+      number,
+      null,
+      function() {
+
+        item.style.display = "none";
+
+      }
+    );
 
     preview.onclick = function() {
 
