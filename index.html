@@ -7,7 +7,9 @@
 <title>Brand Randomizer</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -40,7 +42,9 @@ h1 {
   margin: 15px 0;
 }
 
-.subtitle { color: #817b70; }
+.subtitle {
+  color: #817b70;
+}
 
 .section {
   background: #fff;
@@ -78,7 +82,9 @@ button {
   transition: .2s;
 }
 
-button:hover { background: #777b68; }
+button:hover {
+  background: #777b68;
+}
 
 .small-btn {
   padding: 9px 14px;
@@ -104,61 +110,23 @@ button:hover { background: #777b68; }
   background: #eeeae3;
   border-radius: 8px;
   overflow: hidden;
-  min-height: 250px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   display: grid;
   place-items: center;
 }
 
 .image-frame img {
   width: 100%;
-  max-height: 550px;
+  height: 100%;
   object-fit: contain;
   display: block;
 }
 
 .empty {
   color: #938d82;
-  padding: 50px 15px;
+  padding: 30px 15px;
   text-align: center;
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.gallery-item {
-  position: relative;
-}
-
-.gallery-item img {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: contain;
-  background: #eeeae3;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.gallery-item button {
-  width: 100%;
-  margin-top: 5px;
-  padding: 7px;
-  font-size: 11px;
-}
-
-input[type="file"] { display: none; }
-
-.upload {
-  display: inline-block;
-  padding: 14px 20px;
-  background: #eae6df;
-  color: #34372e;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 13px;
 }
 
 .note {
@@ -174,32 +142,108 @@ footer {
   margin-top: 35px;
 }
 
+/* COLLAPSIBLE GALLERY */
+
+.gallery-dropdown summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.gallery-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.gallery-dropdown summary strong {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.dropdown-arrow {
+  font-size: 24px;
+  color: #a18d72;
+  transition: transform .2s;
+}
+
+.gallery-dropdown[open] .dropdown-arrow {
+  transform: rotate(45deg);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  background: #eeeae3;
+  border-radius: 6px;
+  cursor: pointer;
+  display: block;
+}
+
+.gallery-item button {
+  width: 100%;
+  margin-top: 5px;
+  padding: 7px;
+  font-size: 11px;
+}
+
+.gallery-item.selected img {
+  outline: 3px solid #a18d72;
+  outline-offset: 2px;
+}
+
 </style>
 </head>
 
 <body>
+
 <div class="container">
 
 <header>
   <p>YOUR CREATIVE PLAYGROUND</p>
   <h1>Brand Randomizer</h1>
-  <div class="subtitle">A little inspiration for your next big idea.</div>
+  <div class="subtitle">
+    A little inspiration for your next big idea.
+  </div>
 </header>
 
 <div class="section">
   <div class="label">01 — BUSINESS TYPE</div>
-  <h2 class="result" id="business">Waiting for inspiration...</h2>
+  <h2 class="result" id="business">
+    Waiting for inspiration...
+  </h2>
+
   <div class="actions">
-    <button class="small-btn" onclick="randomBusiness()">↻ Randomize business</button>
+    <button class="small-btn" onclick="randomBusiness()">
+      ↻ Randomize business
+    </button>
   </div>
 </div>
 
 <div class="section">
   <div class="label">02 — BRAND NAME</div>
-  <h2 class="result name" id="brand">Your next brand</h2>
+  <h2 class="result name" id="brand">
+    Your next brand
+  </h2>
+
   <div class="actions">
-    <button class="small-btn" onclick="randomName()">↻ Randomize name</button>
-    <button class="small-btn" onclick="copyName()">Copy name</button>
+    <button class="small-btn" onclick="randomName()">
+      ↻ Randomize name
+    </button>
+
+    <button class="small-btn" onclick="copyName()">
+      Copy name
+    </button>
   </div>
 </div>
 
@@ -211,7 +255,9 @@ footer {
   </div>
 
   <div class="actions">
-    <button class="small-btn" onclick="randomImage()">↻ Randomize image</button>
+    <button class="small-btn" onclick="randomImage()">
+      ↻ Randomize image
+    </button>
   </div>
 </div>
 
@@ -220,23 +266,30 @@ footer {
 </button>
 
 <div class="section">
-  <div class="label">04 — MY IMAGE LIBRARY</div>
-  <h2 class="result">Your inspiration gallery</h2>
 
-  <p class="note">
-    Upload your own 2000 × 2000 images containing your color palettes.
-    They will be available in your gallery on this browser.
-  </p>
+  <details class="gallery-dropdown">
 
-  <label class="upload" for="imageUpload">
-    + ADD YOUR IMAGES
-  </label>
+    <summary>
+      <span>
+        <span class="label">04 — MY IMAGE LIBRARY</span>
+        <br>
+        <strong>My inspiration gallery</strong>
+      </span>
 
-  <input type="file" id="imageUpload" accept="image/*" multiple>
+      <span class="dropdown-arrow">＋</span>
+    </summary>
 
-  <div class="gallery" id="gallery">
-    <p class="note">No images uploaded yet.</p>
-  </div>
+    <p class="note">
+      Your personal collection of color inspiration.
+      Select any image to use it in your brand challenge.
+    </p>
+
+    <div class="gallery" id="gallery">
+      <p class="note">Loading your images...</p>
+    </div>
+
+  </details>
+
 </div>
 
 <footer>
@@ -246,6 +299,7 @@ footer {
 </div>
 
 <script>
+
 const businesses = [
   "Luxury Skincare",
   "Independent Coffee Shop",
@@ -285,7 +339,7 @@ const firstWords = [
   "Studio", "Solace", "Honey", "Forma",
   "Bloom", "Fable", "Marlow", "Sonder",
   "Luna", "Arden", "Sage", "Noire",
-  "Sunday", "Ever", "June", "Aurelia"
+  "Ever", "June", "Aurelia"
 ];
 
 const secondWords = [
@@ -295,15 +349,24 @@ const secondWords = [
   "& Form", "Corner", "Goods", "Edit"
 ];
 
-let images = [];
+// Your 50 GitHub images
+
+const images = Array.from(
+  { length: 50 },
+  (_, index) => index + 1
+);
+
 let selectedImage = null;
 
 function pick(array) {
-  return array[Math.floor(Math.random() * array.length)];
+  return array[
+    Math.floor(Math.random() * array.length)
+  ];
 }
 
 function randomBusiness() {
-  document.getElementById("business").textContent = pick(businesses);
+  document.getElementById("business").textContent =
+    pick(businesses);
 }
 
 function randomName() {
@@ -311,22 +374,41 @@ function randomName() {
     pick(firstWords) + " " + pick(secondWords);
 }
 
+function showImage(number) {
+  const frame = document.getElementById("imageFrame");
+
+  frame.innerHTML = "";
+
+  const img = document.createElement("img");
+
+  img.src = `images/${number}.png`;
+  img.alt = `Color inspiration ${number}`;
+
+  img.onerror = function() {
+    frame.innerHTML =
+      `<div class="empty">
+        Image ${number}.png could not be loaded.
+        Check your images folder.
+      </div>`;
+  };
+
+  frame.appendChild(img);
+
+  renderGallery();
+}
+
 function randomImage() {
-  if (images.length === 0) {
-    alert("Upload some inspiration images first!");
-    return;
+  let available = images.filter(
+    number => number !== selectedImage
+  );
+
+  if (available.length === 0) {
+    available = images;
   }
 
-  let available = images.filter(img => img.id !== selectedImage);
+  selectedImage = pick(available);
 
-  if (available.length === 0) available = images;
-
-  const chosen = pick(available);
-  selectedImage = chosen.id;
-
-  document.getElementById("imageFrame").innerHTML =
-    `<img src="${chosen.data}" alt="Brand color inspiration">`;
-  renderGallery();
+  showImage(selectedImage);
 }
 
 function generateAll() {
@@ -336,120 +418,70 @@ function generateAll() {
 }
 
 function copyName() {
-  const name = document.getElementById("brand").textContent;
+  const name =
+    document.getElementById("brand").textContent;
+
   navigator.clipboard.writeText(name)
     .then(() => alert("Brand name copied!"))
-    .catch(() => alert("Could not copy. Please select the name manually."));
+    .catch(() => alert("Could not copy the name."));
 }
 
-// Store uploaded images in this browser using IndexedDB.
-
-let db;
-
-const request = indexedDB.open("BrandRandomizer", 1);
-
-request.onupgradeneeded = function(event) {
-  const database = event.target.result;
-  database.createObjectStore("images", {
-    keyPath: "id",
-    autoIncrement: true
-  });
-};
-
-request.onsuccess = function(event) {
-  db = event.target.result;
-  loadImages();
-};
-
-request.onerror = function() {
-  alert("Could not open image storage.");
-};
-
-function loadImages() {
-  const transaction = db.transaction("images", "readonly");
-  const store = transaction.objectStore("images");
-
-  store.getAll().onsuccess = function(event) {
-    images = event.target.result;
-    renderGallery();
-  };
-}
-
-document.getElementById("imageUpload").addEventListener("change",
-function(event) {
-  const files = Array.from(event.target.files);
-
-  files.forEach(file => {
-    if (!file.type.startsWith("image/")) return;
-
-    const transaction = db.transaction("images", "readwrite");
-    transaction.objectStore("images").add({
-      name: file.name,
-      data: file
-    });
-
-    transaction.oncomplete = loadImages;
-  });
-
-  event.target.value = "";
-});
+// GALLERY
 
 function renderGallery() {
   const gallery = document.getElementById("gallery");
 
-  if (images.length === 0) {
-    gallery.innerHTML =
-      '<p class="note">No images uploaded yet.</p>';
-    return;
-  }
-
   gallery.innerHTML = "";
 
-  images.forEach(img => {
+  images.forEach(number => {
+
     const item = document.createElement("div");
+
     item.className = "gallery-item";
 
-    const preview = document.createElement("img");
-    preview.src = URL.createObjectURL(img.data);
-    preview.alt = img.name;
-    preview.title = "Click to select this image";
+    if (number === selectedImage) {
+      item.classList.add("selected");
+    }
 
-    preview.onclick = function() {
-      selectedImage = img.id;
-      document.getElementById("imageFrame").innerHTML = "";
-      const large = document.createElement("img");
-      large.src = URL.createObjectURL(img.data);
-      large.alt = img.name;
-      document.getElementById("imageFrame").appendChild(large);
-      renderGallery();
+    const preview = document.createElement("img");
+
+    preview.src = `images/${number}.png`;
+    preview.alt = `Inspiration image ${number}`;
+    preview.loading = "lazy";
+
+    preview.onerror = function() {
+      item.remove();
     };
 
-    const remove = document.createElement("button");
-    remove.textContent = "Remove";
-    remove.className = "small-btn";
+    preview.onclick = function() {
+      selectedImage = number;
+      showImage(number);
+    };
 
-    remove.onclick = function() {
-      if (!confirm("Remove this image from your gallery?")) return;
+    const button = document.createElement("button");
 
-      const transaction = db.transaction("images", "readwrite");
-      transaction.objectStore("images").delete(img.id);
-      transaction.oncomplete = function() {
-        if (selectedImage === img.id) {
-          selectedImage = null;
-          document.getElementById("imageFrame").innerHTML =
-            '<div class="empty">Your inspiration image will appear here.</div>';
-        }
-        loadImages();
-      };
+    button.textContent = "Select image";
+    button.className = "small-btn";
+
+    button.onclick = function() {
+      selectedImage = number;
+      showImage(number);
     };
 
     item.appendChild(preview);
-    item.appendChild(remove);
+    item.appendChild(button);
+
     gallery.appendChild(item);
+
   });
 }
 
+// START
+
+renderGallery();
 generateAll();
+
 </script>
+
 </body>
 </html>
