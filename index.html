@@ -19,14 +19,14 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: auto;
-  padding: 35px 22px;
+  padding: 30px 22px;
 }
 
 header {
   text-align: center;
-  margin-bottom: 35px;
+  margin-bottom: 28px;
 }
 
 header p {
@@ -39,21 +39,23 @@ h1 {
   font-family: Georgia, serif;
   font-size: clamp(36px, 7vw, 58px);
   font-weight: normal;
-  margin: 15px 0;
+  margin: 12px 0;
 }
 
 .subtitle {
   color: #817b70;
 }
 
-/* THREE-COLUMN LAYOUT */
+/* MAIN LAYOUT */
 
 .results-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
   align-items: stretch;
 }
+
+/* SECTIONS */
 
 .section {
   background: #fff;
@@ -63,10 +65,21 @@ h1 {
   min-width: 0;
 }
 
-.results-grid .section {
+/* LEFT COLUMN */
+
+.text-column {
   display: flex;
   flex-direction: column;
-  min-height: 330px;
+  gap: 18px;
+}
+
+.text-column .section {
+  flex: 1;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
 }
 
 .label {
@@ -79,13 +92,13 @@ h1 {
 
 .result {
   font-family: Georgia, serif;
-  font-size: 27px;
+  font-size: 29px;
   margin: 0;
   overflow-wrap: anywhere;
 }
 
 .name {
-  font-size: 34px;
+  font-size: 36px;
 }
 
 /* BUTTONS */
@@ -114,28 +127,22 @@ button:hover {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: auto;
-  padding-top: 20px;
+  margin-top: 16px;
 }
 
-.main-button {
-  width: 100%;
-  padding: 19px;
-  font-size: 14px;
-  letter-spacing: 2px;
-  margin: 0 0 25px;
-}
+/* IMAGE COLUMN */
 
-/* IMAGE */
+.image-section {
+  display: flex;
+  flex-direction: column;
+}
 
 .image-frame {
   background: #eeeae3;
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
-  flex: 1;
-  min-height: 170px;
-  max-height: 220px;
+  aspect-ratio: 1 / 1;
   display: grid;
   place-items: center;
 }
@@ -153,6 +160,18 @@ button:hover {
   text-align: center;
   font-size: 13px;
 }
+
+/* GENERATE BUTTON */
+
+.main-button {
+  width: 100%;
+  padding: 19px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin: 0 0 25px;
+}
+
+/* NOTES */
 
 .note {
   font-size: 12px;
@@ -229,70 +248,65 @@ footer {
 
 /* TABLET */
 
-@media (max-width: 850px) {
+@media (max-width: 700px) {
   .container {
-    padding: 30px 16px;
+    padding: 25px 16px;
   }
 
   .results-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 
-  .results-grid .section:last-child {
-    grid-column: 1 / -1;
+  .section {
+    padding: 16px;
   }
 
-  .results-grid .section:last-child .image-frame {
-    max-height: 280px;
+  .result {
+    font-size: 23px;
+  }
+
+  .name {
+    font-size: 29px;
   }
 }
 
 /* MOBILE */
 
-@media (max-width: 560px) {
-  .container {
-    padding: 25px 14px;
-  }
-
-  header {
-    margin-bottom: 25px;
-  }
-
+@media (max-width: 480px) {
   .results-grid {
     grid-template-columns: 1fr;
-    gap: 0;
   }
 
-  .results-grid .section {
-    min-height: auto;
-    padding: 22px;
+  .text-column {
+    gap: 12px;
   }
 
-  .results-grid .section:last-child {
-    grid-column: auto;
+  .text-column .section {
+    padding: 20px;
   }
 
-  .results-grid .section:last-child .image-frame {
-    height: 240px;
+  .image-section {
+    padding: 18px;
   }
 
   .result {
-    font-size: 26px;
+    font-size: 27px;
   }
 
   .name {
-    font-size: 34px;
+    font-size: 32px;
   }
 
-  .actions {
-    margin-top: 15px;
-    padding-top: 10px;
+  .image-frame {
+    max-width: 100%;
   }
 
   .main-button {
     margin-top: 0;
   }
 }
+
 </style>
 </head>
 
@@ -308,46 +322,62 @@ footer {
   </div>
 </header>
 
-<!-- THREE SECTIONS SIDE BY SIDE -->
+<!-- MAIN THREE-AREA LAYOUT -->
 
 <div class="results-grid">
 
-  <!-- BUSINESS TYPE -->
-  <div class="section">
-    <div class="label">01 — BUSINESS TYPE</div>
+  <!-- BUSINESS TYPE AND BRAND NAME STACKED -->
 
-    <h2 class="result" id="business">
-      Waiting for inspiration...
-    </h2>
+  <div class="text-column">
 
-    <div class="actions">
-      <button class="small-btn" onclick="randomBusiness()">
-        ↻ Randomize business
-      </button>
+    <!-- BUSINESS TYPE -->
+
+    <div class="section">
+
+      <div class="label">01 — BUSINESS TYPE</div>
+
+      <h2 class="result" id="business">
+        Waiting for inspiration...
+      </h2>
+
+      <div class="actions">
+        <button class="small-btn" onclick="randomBusiness()">
+          ↻ Randomize business
+        </button>
+      </div>
+
     </div>
+
+    <!-- BRAND NAME -->
+
+    <div class="section">
+
+      <div class="label">02 — BRAND NAME</div>
+
+      <h2 class="result name" id="brand">
+        Your next brand
+      </h2>
+
+      <div class="actions">
+
+        <button class="small-btn" onclick="randomName()">
+          ↻ Randomize name
+        </button>
+
+        <button class="small-btn" onclick="copyName()">
+          Copy name
+        </button>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <!-- BRAND NAME -->
-  <div class="section">
-    <div class="label">02 — BRAND NAME</div>
+  <!-- SQUARE INSPIRATION IMAGE -->
 
-    <h2 class="result name" id="brand">
-      Your next brand
-    </h2>
+  <div class="section image-section">
 
-    <div class="actions">
-      <button class="small-btn" onclick="randomName()">
-        ↻ Randomize name
-      </button>
-
-      <button class="small-btn" onclick="copyName()">
-        Copy name
-      </button>
-    </div>
-  </div>
-
-  <!-- COLOR INSPIRATION -->
-  <div class="section">
     <div class="label">03 — COLOR INSPIRATION</div>
 
     <div class="image-frame" id="imageFrame">
@@ -361,23 +391,25 @@ footer {
         ↻ Randomize image
       </button>
     </div>
+
   </div>
 
 </div>
 
-<!-- GENERATE BUTTON -->
+<!-- GENERATE EVERYTHING -->
 
 <button class="main-button" onclick="generateAll()">
   ✦ GENERATE MY BRAND ✦
 </button>
 
-<!-- IMAGE GALLERY -->
+<!-- IMAGE LIBRARY -->
 
 <div class="section">
 
   <details class="gallery-dropdown">
 
     <summary>
+
       <span>
         <span class="label">04 — MY IMAGE LIBRARY</span>
         <br>
@@ -385,6 +417,7 @@ footer {
       </span>
 
       <span class="dropdown-arrow">＋</span>
+
     </summary>
 
     <p class="note">
@@ -457,7 +490,7 @@ const secondWords = [
   "& Form", "Corner", "Goods", "Edit"
 ];
 
-// Your 50 GitHub images
+// YOUR 50 GITHUB IMAGES
 
 const images = Array.from(
   { length: 50 },
@@ -472,17 +505,24 @@ function pick(array) {
   ];
 }
 
+// RANDOMIZE BUSINESS
+
 function randomBusiness() {
   document.getElementById("business").textContent =
     pick(businesses);
 }
+
+// RANDOMIZE BRAND NAME
 
 function randomName() {
   document.getElementById("brand").textContent =
     pick(firstWords) + " " + pick(secondWords);
 }
 
+// DISPLAY IMAGE
+
 function showImage(number) {
+
   const frame = document.getElementById("imageFrame");
 
   frame.innerHTML = "";
@@ -490,14 +530,17 @@ function showImage(number) {
   const img = document.createElement("img");
 
   img.src = `images/${number}.png`;
+
   img.alt = `Color inspiration ${number}`;
 
   img.onerror = function() {
+
     frame.innerHTML =
       `<div class="empty">
         Image ${number}.png could not be loaded.
         Check your images folder.
       </div>`;
+
   };
 
   frame.appendChild(img);
@@ -505,7 +548,10 @@ function showImage(number) {
   renderGallery();
 }
 
+// RANDOMIZE IMAGE
+
 function randomImage() {
+
   let available = images.filter(
     number => number !== selectedImage
   );
@@ -517,26 +563,40 @@ function randomImage() {
   selectedImage = pick(available);
 
   showImage(selectedImage);
+
 }
+
+// GENERATE ALL THREE
 
 function generateAll() {
+
   randomBusiness();
+
   randomName();
+
   randomImage();
+
 }
 
+// COPY BRAND NAME
+
 function copyName() {
+
   const name =
     document.getElementById("brand").textContent;
 
   navigator.clipboard.writeText(name)
+
     .then(() => alert("Brand name copied!"))
+
     .catch(() => alert("Could not copy the name."));
+
 }
 
-// GALLERY
+// IMAGE GALLERY
 
 function renderGallery() {
+
   const gallery = document.getElementById("gallery");
 
   gallery.innerHTML = "";
@@ -554,7 +614,9 @@ function renderGallery() {
     const preview = document.createElement("img");
 
     preview.src = `images/${number}.png`;
+
     preview.alt = `Inspiration image ${number}`;
+
     preview.loading = "lazy";
 
     preview.onerror = function() {
@@ -562,31 +624,41 @@ function renderGallery() {
     };
 
     preview.onclick = function() {
+
       selectedImage = number;
+
       showImage(number);
+
     };
 
     const button = document.createElement("button");
 
     button.textContent = "Select image";
+
     button.className = "small-btn";
 
     button.onclick = function() {
+
       selectedImage = number;
+
       showImage(number);
+
     };
 
     item.appendChild(preview);
+
     item.appendChild(button);
 
     gallery.appendChild(item);
 
   });
+
 }
 
 // START
 
 renderGallery();
+
 generateAll();
 
 </script>
