@@ -2,494 +2,804 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brand Randomizer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Randomizer</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      padding: 18px;
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      color: #222;
-    }
+body {
+  margin: 0;
+  background: #f5f2ed;
+  color: #292821;
+  font-family: Arial, sans-serif;
+}
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 18px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-    }
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 30px 22px;
+}
 
-    h1 {
-      text-align: center;
-      font-size: 25px;
-      margin: 0 0 18px;
-    }
+header {
+  text-align: center;
+  margin-bottom: 28px;
+}
 
-    h2 {
-      font-size: 15px;
-      margin: 0 0 8px;
-    }
+header p {
+  color: #898477;
+  letter-spacing: 3px;
+  font-size: 11px;
+}
 
-    .results-grid {
-      display: grid;
-      grid-template-columns: 1fr 0.85fr;
-      gap: 14px;
-      align-items: stretch;
-    }
+h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(36px, 7vw, 58px);
+  font-weight: normal;
+  margin: 12px 0;
+}
 
-    .text-column {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+.subtitle {
+  color: #817b70;
+}
 
-    .result-section {
-      padding: 13px;
-      background: #f7f7f7;
-      border-radius: 9px;
-      min-width: 0;
-    }
+/* MAIN LAYOUT */
 
-    .result-text {
-      font-size: 19px;
-      font-weight: bold;
-      overflow-wrap: anywhere;
-      min-height: 25px;
-      margin: 5px 0 10px;
-    }
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: stretch;
+}
 
-    .image-section {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
+.section {
+  background: #fff;
+  padding: 22px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  min-width: 0;
+}
 
-    .image-frame {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background: #eee;
-      border-radius: 9px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+/* TEXT COLUMN */
 
-    .image-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
+.text-column {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
 
-    button {
-      border: none;
-      border-radius: 6px;
-      padding: 8px 11px;
-      font-size: 12px;
-      cursor: pointer;
-      background: #222;
-      color: white;
-      transition: opacity 0.2s;
-    }
+.text-column .section {
+  flex: 1;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-    button:hover {
-      opacity: 0.8;
-    }
+.label {
+  color: #a18d72;
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
 
-    .button-row {
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
-    }
+.result {
+  font-family: Georgia, serif;
+  font-size: 29px;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
 
-    .gallery-section {
-      margin-top: 18px;
-    }
+.name {
+  font-size: 36px;
+}
 
-    .gallery-section h2 {
-      margin-bottom: 10px;
-    }
+/* BUTTONS */
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
-      gap: 7px;
-    }
+button {
+  background: #34372e;
+  color: white;
+  border: none;
+  padding: 14px 22px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 13px;
+  transition: .2s;
+}
 
-    .gallery img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      border-radius: 6px;
-      cursor: pointer;
-      border: 2px solid transparent;
-      background: #eee;
-      transition: border-color 0.2s;
-    }
+button:hover {
+  background: #777b68;
+}
 
-    .gallery img:hover {
-      border-color: #999;
-    }
+.small-btn {
+  padding: 9px 12px;
+  font-size: 12px;
+}
 
-    .gallery img.selected {
-      border-color: #222;
-    }
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
 
-    .main-actions {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 17px;
-    }
+/* IMAGE */
 
-    .footer {
-      text-align: center;
-      font-size: 11px;
-      color: #888;
-      margin-top: 18px;
-    }
+.image-section {
+  display: flex;
+  flex-direction: column;
+}
 
-    @media (max-width: 600px) {
-      body {
-        padding: 9px;
-      }
+.image-frame {
+  background: #eeeae3;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+}
 
-      .container {
-        padding: 12px;
-      }
+.image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
 
-      h1 {
-        font-size: 21px;
-      }
+.empty {
+  color: #938d82;
+  padding: 20px 15px;
+  text-align: center;
+  font-size: 13px;
+}
 
-      .results-grid {
-        grid-template-columns: 1fr 0.85fr;
-        gap: 9px;
-      }
+/* GENERATE BUTTON */
 
-      .result-section {
-        padding: 9px;
-      }
+.main-button {
+  width: 100%;
+  padding: 19px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin: 0 0 25px;
+}
 
-      .result-text {
-        font-size: 15px;
-      }
+/* NOTES */
 
-      button {
-        padding: 7px 8px;
-        font-size: 11px;
-      }
+.note {
+  font-size: 12px;
+  color: #999184;
+  line-height: 1.6;
+}
 
-      .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
-        gap: 5px;
-      }
-    }
+footer {
+  text-align: center;
+  color: #aaa294;
+  font-size: 11px;
+  margin-top: 35px;
+}
 
-    @media (max-width: 380px) {
-      .results-grid {
-        grid-template-columns: 1fr;
-      }
+/* GALLERY */
 
-      .image-section {
-        max-width: 280px;
-        width: 100%;
-        margin: 0 auto;
-      }
-    }
-  </style>
+.gallery-dropdown summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.gallery-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.gallery-dropdown summary strong {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.dropdown-arrow {
+  font-size: 24px;
+  color: #a18d72;
+  transition: transform .2s;
+}
+
+.gallery-dropdown[open] .dropdown-arrow {
+  transform: rotate(45deg);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.gallery-item {
+  min-width: 0;
+}
+
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  background: #eeeae3;
+  border-radius: 6px;
+  cursor: pointer;
+  display: block;
+  transition: outline .15s;
+}
+
+.gallery-item img:hover {
+  opacity: .85;
+}
+
+.gallery-item.selected img {
+  outline: 3px solid #a18d72;
+  outline-offset: 2px;
+}
+
+/* TABLET */
+
+@media (max-width: 700px) {
+  .container {
+    padding: 25px 16px;
+  }
+
+  .results-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .section {
+    padding: 16px;
+  }
+
+  .result {
+    font-size: 23px;
+  }
+
+  .name {
+    font-size: 29px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .text-column {
+    gap: 12px;
+  }
+
+  .text-column .section {
+    padding: 20px;
+  }
+
+  .image-section {
+    padding: 18px;
+  }
+
+  .result {
+    font-size: 27px;
+  }
+
+  .name {
+    font-size: 32px;
+  }
+}
+
+</style>
 </head>
 
 <body>
-  <main class="container">
-    <h1>Brand Randomizer</h1>
 
-    <div class="results-grid">
-      <div class="text-column">
+<div class="container">
 
-        <section class="result-section">
-          <h2>Business Type</h2>
-          <div class="result-text" id="businessType">Click randomize to start</div>
-          <div class="button-row">
-            <button onclick="randomizeBusiness()">Randomize</button>
-          </div>
-        </section>
+<header>
+  <p>YOUR CREATIVE PLAYGROUND</p>
+  <h1>Brand Randomizer</h1>
+  <div class="subtitle">
+    A little inspiration for your next big idea.
+  </div>
+</header>
 
-        <section class="result-section">
-          <h2>Brand Name</h2>
-          <div class="result-text" id="brandName">Your brand name</div>
-          <div class="button-row">
-            <button onclick="randomizeName()">Randomize</button>
-            <button onclick="copyBrandName()">Copy</button>
-          </div>
-        </section>
+<!-- MAIN LAYOUT -->
+
+<div class="results-grid">
+
+  <!-- BUSINESS AND NAME -->
+
+  <div class="text-column">
+
+    <div class="section">
+
+      <div class="label">01 — BUSINESS TYPE</div>
+
+      <h2 class="result" id="business">
+        Waiting for inspiration...
+      </h2>
+
+      <div class="actions">
+        <button class="small-btn" onclick="randomBusiness()">
+          ↻ Randomize business
+        </button>
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="label">02 — BRAND NAME</div>
+
+      <h2 class="result name" id="brand">
+        Your next brand
+      </h2>
+
+      <div class="actions">
+
+        <button class="small-btn" onclick="randomName()">
+          ↻ Randomize name
+        </button>
+
+        <button class="small-btn" onclick="copyName()">
+          Copy name
+        </button>
 
       </div>
 
-      <section class="image-section">
-        <h2>Color Inspiration</h2>
-        <div class="image-frame">
-          <img id="mainImage" alt="Color inspiration">
-        </div>
-        <div class="button-row" style="margin-top: 8px;">
-          <button onclick="randomizeImage()">Randomize Image</button>
-        </div>
-      </section>
     </div>
 
-    <div class="main-actions">
-      <button onclick="generateAll()">Generate All</button>
+  </div>
+
+  <!-- INSPIRATION IMAGE -->
+
+  <div class="section image-section">
+
+    <div class="label">03 — COLOR INSPIRATION</div>
+
+    <div class="image-frame" id="imageFrame">
+      <div class="empty">
+        Your inspiration image will appear here.
+      </div>
     </div>
 
-    <section class="gallery-section">
-      <h2>Image Gallery</h2>
-      <div class="gallery" id="gallery"></div>
-    </section>
-
-    <div class="footer">
-      Brand Randomizer
+    <div class="actions">
+      <button class="small-btn" onclick="randomImage()">
+        ↻ Randomize image
+      </button>
     </div>
-  </main>
 
-  <script>
-    const businessTypes = [
-      "Fashion Brand",
-      "Skincare Brand",
-      "Coffee Shop",
-      "Restaurant",
-      "Jewelry Brand",
-      "Interior Design Studio",
-      "Creative Agency",
-      "Bakery",
-      "Perfume Brand",
-      "Wellness Brand",
-      "Candle Brand",
-      "Furniture Brand",
-      "Beauty Salon",
-      "Clothing Store",
-      "Flower Shop",
-      "Bookstore",
-      "Art Studio",
-      "Photography Studio",
-      "Travel Agency",
-      "Pet Brand",
-      "Technology Brand",
-      "Sportswear Brand",
-      "Home Decor Brand",
-      "Tea Brand",
-      "Chocolate Brand",
-      "Hotel",
-      "Luxury Accessories Brand",
-      "Ceramics Studio",
-      "Food Brand",
-      "Lifestyle Brand"
-    ];
+  </div>
 
-    const singleWords = [
-      "Aurelia", "Solace", "Velora", "Lunelle",
-      "Novara", "Elowen", "Sorelle", "Avora",
-      "Calista", "Ovelle", "Lumora", "Zarela",
-      "Orlena", "Virelle", "Amoura", "Nuvia",
-      "Elaris", "Avenor", "Marvelle", "Isola",
-      "Aloura", "Seren", "Oriana", "Vellum",
-      "Ciela", "Arden", "Mirelle", "Solis",
-      "Evora", "Liora", "Nolia", "Aster",
-      "Vesper", "Elara", "Sienna", "Aureve"
-    ];
+</div>
 
-    const firstWords = [
-      "Golden", "Soft", "Velvet", "Sunday",
-      "Silver", "Little", "Wild", "Modern",
-      "Pure", "Hidden", "Slow", "Amber",
-      "Quiet", "Blue", "Maison", "Olive",
-      "Cloud", "Honey", "Rare", "Blush",
-      "Dream", "Urban", "Satin", "Mellow",
-      "Golden", "Studio", "Bloom", "Ivory"
-    ];
+<!-- GENERATE ALL -->
 
-    const secondWords = [
-      "Theory", "Muse", "Studio", "House",
-      "Garden", "Atelier", "Society", "Collective",
-      "Moment", "Ritual", "Form", "Archive",
-      "Edit", "Concept", "Bloom", "Essence",
-      "Label", "Market", "Living", "Stories",
-      "Objects", "Aura", "Room", "Project",
-      "Days", "World", "Coast", "Lane"
-    ];
+<button class="main-button" onclick="generateAll()">
+  ✦ GENERATE MY BRAND ✦
+</button>
 
-    const imageNumbers = Array.from(
-      { length: 50 },
-      (_, index) => index + 1
+<!-- IMAGE GALLERY -->
+
+<div class="section">
+
+  <details class="gallery-dropdown">
+
+    <summary>
+
+      <span>
+        <span class="label">04 — MY IMAGE LIBRARY</span>
+        <br>
+        <strong>My inspiration gallery</strong>
+      </span>
+
+      <span class="dropdown-arrow">＋</span>
+
+    </summary>
+
+    <p class="note">
+      Your personal collection of color inspiration.
+      Click any image to use it in your brand challenge.
+    </p>
+
+    <div class="gallery" id="gallery">
+      <p class="note">Loading your images...</p>
+    </div>
+
+  </details>
+
+</div>
+
+<footer>
+  MADE FOR CREATIVE MINDS ♡
+</footer>
+
+</div>
+
+<script>
+
+// BUSINESS TYPES
+
+const businesses = [
+  "Luxury Skincare",
+  "Independent Coffee Shop",
+  "Boutique Fashion Label",
+  "Artisan Bakery",
+  "Interior Design Studio",
+  "Jewelry Brand",
+  "Perfume House",
+  "Wellness Studio",
+  "Pet Accessories",
+  "Organic Food Brand",
+  "Creative Agency",
+  "Boutique Hotel",
+  "Flower Shop",
+  "Candle Brand",
+  "Specialty Tea Shop",
+  "Fitness Studio",
+  "Home Decor Brand",
+  "Bookstore",
+  "Restaurant",
+  "Haircare Brand",
+  "Ceramics Studio",
+  "Travel Agency",
+  "Chocolate Brand",
+  "Vintage Clothing Store",
+  "Natural Cosmetics",
+  "Furniture Brand",
+  "Photography Studio",
+  "Stationery Brand",
+  "Sustainable Fashion",
+  "Wine Bar"
+];
+
+// SINGLE-WORD BRAND NAMES
+
+const singleWords = [
+  "Morrow",
+  "Olive",
+  "Sunday",
+  "Velvet",
+  "Golden",
+  "Willow",
+  "Clover",
+  "Solace",
+  "Honey",
+  "Forma",
+  "Bloom",
+  "Fable",
+  "Marlow",
+  "Sonder",
+  "Luna",
+  "Arden",
+  "Sage",
+  "Noire",
+  "Ever",
+  "June",
+  "Aurelia",
+  "Alora",
+  "Novelle",
+  "Amora",
+  "Elowen",
+  "Vesper",
+  "Aster",
+  "Opaline",
+  "Lumina",
+  "Cove",
+  "Ovelle",
+  "Maison",
+  "Sunday",
+  "Floré",
+  "Solene",
+  "Aure",
+  "Maven",
+  "Solis",
+  "Aura",
+  "Monroe"
+];
+
+// TWO-WORD BRAND NAME COMPONENTS
+
+const firstWords = [
+  "Morrow",
+  "Olive",
+  "Sunday",
+  "Velvet",
+  "Maison",
+  "Golden",
+  "Willow",
+  "Clover",
+  "Studio",
+  "Solace",
+  "Honey",
+  "Forma",
+  "Bloom",
+  "Fable",
+  "Marlow",
+  "Sonder",
+  "Luna",
+  "Arden",
+  "Sage",
+  "Noire",
+  "Ever",
+  "June",
+  "Aurelia"
+];
+
+const secondWords = [
+  "House",
+  "Studio",
+  "Collective",
+  "Society",
+  "Atelier",
+  "& Co.",
+  "Works",
+  "Supply",
+  "Theory",
+  "Living",
+  "Label",
+  "Market",
+  "& Form",
+  "Corner",
+  "Goods",
+  "Edit"
+];
+
+// YOUR 50 GITHUB IMAGES
+
+const images = Array.from(
+  { length: 50 },
+  (_, index) => index + 1
+);
+
+// IMAGE FILE EXTENSIONS TO TRY
+
+const imageExtensions = [
+  "png",
+  "jpg",
+  "jpeg",
+  "webp"
+];
+
+let selectedImage = null;
+
+// RANDOM PICKER
+
+function pick(array) {
+  return array[
+    Math.floor(Math.random() * array.length)
+  ];
+}
+
+// RANDOMIZE BUSINESS
+
+function randomBusiness() {
+
+  document.getElementById("business").textContent =
+    pick(businesses);
+
+}
+
+// RANDOMIZE BRAND NAME
+// 45% chance of one word
+// 55% chance of two words
+
+function randomName() {
+
+  let name;
+
+  if (Math.random() < 0.45) {
+
+    name = pick(singleWords);
+
+  } else {
+
+    name = pick(firstWords) + " " + pick(secondWords);
+
+  }
+
+  document.getElementById("brand").textContent = name;
+
+}
+
+// LOAD IMAGE WITH EXTENSION FALLBACK
+
+function loadImage(img, number) {
+
+  let extensionIndex = 0;
+
+  function tryNextExtension() {
+
+    if (extensionIndex >= imageExtensions.length) {
+
+      img.dataset.failed = "true";
+
+      img.onerror = null;
+
+      return;
+
+    }
+
+    const extension = imageExtensions[extensionIndex];
+
+    extensionIndex++;
+
+    img.src = `images/${number}.${extension}`;
+
+  }
+
+  img.onerror = tryNextExtension;
+
+  tryNextExtension();
+
+}
+
+// DISPLAY MAIN IMAGE
+
+function showImage(number) {
+
+  const frame = document.getElementById("imageFrame");
+
+  frame.innerHTML = "";
+
+  const img = document.createElement("img");
+
+  img.alt = `Color inspiration ${number}`;
+
+  img.loading = "eager";
+
+  img.decoding = "async";
+
+  img.fetchPriority = "high";
+
+  loadImage(img, number);
+
+  frame.appendChild(img);
+
+  updateSelectedImage();
+
+}
+
+// RANDOMIZE IMAGE
+
+function randomImage() {
+
+  let available = images.filter(
+    number => number !== selectedImage
+  );
+
+  if (available.length === 0) {
+    available = images;
+  }
+
+  selectedImage = pick(available);
+
+  showImage(selectedImage);
+
+}
+
+// GENERATE EVERYTHING
+
+function generateAll() {
+
+  randomBusiness();
+
+  randomName();
+
+  randomImage();
+
+}
+
+// COPY NAME
+
+function copyName() {
+
+  const name =
+    document.getElementById("brand").textContent;
+
+  navigator.clipboard.writeText(name)
+
+    .then(() => alert("Brand name copied!"))
+
+    .catch(() => alert("Could not copy the name."));
+
+}
+
+// UPDATE GALLERY SELECTION
+// Does not reload any gallery images
+
+function updateSelectedImage() {
+
+  document.querySelectorAll(".gallery-item").forEach(item => {
+
+    const number = Number(item.dataset.number);
+
+    item.classList.toggle(
+      "selected",
+      number === selectedImage
     );
 
-    const extensions = [
-      "png",
-      "jpg",
-      "jpeg",
-      "webp",
-      "PNG",
-      "JPG",
-      "JPEG",
-      "WEBP"
-    ];
+  });
 
-    const imageCache = new Map();
+}
 
-    let selectedImageNumber = null;
+// SELECT IMAGE BY CLICKING IT
 
-    function randomItem(array) {
-      return array[Math.floor(Math.random() * array.length)];
-    }
+function selectImage(number) {
 
-    function randomizeBusiness() {
-      document.getElementById("businessType").textContent =
-        randomItem(businessTypes);
-    }
+  selectedImage = number;
 
-    function randomizeName() {
-      let name;
+  showImage(number);
 
-      if (Math.random() < 0.45) {
-        name = randomItem(singleWords);
-      } else {
-        name = randomItem(firstWords) + " " + randomItem(secondWords);
-      }
+}
 
-      document.getElementById("brandName").textContent = name;
-    }
+// BUILD GALLERY ONCE
 
-    function loadImage(img, number, onSuccess, onFailure) {
-      if (imageCache.has(number)) {
-        img.src = imageCache.get(number);
-        if (onSuccess) onSuccess();
-        return;
-      }
+function renderGallery() {
 
-      let extensionIndex = 0;
+  const gallery = document.getElementById("gallery");
 
-      function tryNextExtension() {
-        if (extensionIndex >= extensions.length) {
-          if (onFailure) onFailure();
-          return;
-        }
+  gallery.innerHTML = "";
 
-        const extension = extensions[extensionIndex++];
-        const path = `images/${number}.${extension}`;
+  const fragment = document.createDocumentFragment();
 
-        const testImage = new Image();
+  images.forEach(number => {
 
-        testImage.onload = function() {
-          imageCache.set(number, path);
-          img.src = path;
-          if (onSuccess) onSuccess();
-        };
+    const item = document.createElement("div");
 
-        testImage.onerror = tryNextExtension;
-        testImage.src = path;
-      }
+    item.className = "gallery-item";
 
-      tryNextExtension();
-    }
+    item.dataset.number = number;
 
-    function updateSelectedImage() {
-      document.querySelectorAll(".gallery img").forEach(img => {
-        img.classList.toggle(
-          "selected",
-          Number(img.dataset.number) === selectedImageNumber
-        );
-      });
-    }
+    const preview = document.createElement("img");
 
-    function showImage(number) {
-      const mainImage = document.getElementById("mainImage");
+    preview.alt = `Inspiration image ${number}`;
 
-      selectedImageNumber = number;
-      updateSelectedImage();
+    preview.loading = "lazy";
 
-      mainImage.alt = `Color inspiration ${number}`;
+    preview.decoding = "async";
 
-      loadImage(
-        mainImage,
-        number,
-        null,
-        function() {
-          mainImage.removeAttribute("src");
-          mainImage.alt = `Image ${number} could not be loaded`;
-          console.warn(`Could not load image ${number}. Check its filename and extension.`);
-        }
-      );
-    }
+    preview.fetchPriority = "low";
 
-    function randomizeImage() {
-      const number = randomItem(imageNumbers);
-      showImage(number);
-    }
+    preview.dataset.number = number;
 
-    function copyBrandName() {
-      const name = document.getElementById("brandName").textContent;
+    loadImage(preview, number);
 
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(name);
-      } else {
-        const temporary = document.createElement("textarea");
-        temporary.value = name;
-        document.body.appendChild(temporary);
-        temporary.select();
-        document.execCommand("copy");
-        temporary.remove();
-      }
-    }
+    preview.onclick = function() {
 
-    function generateAll() {
-      randomizeBusiness();
-      randomizeName();
-      randomizeImage();
-    }
+      selectImage(number);
 
-    function createGallery() {
-      const gallery = document.getElementById("gallery");
-      const fragment = document.createDocumentFragment();
+    };
 
-      imageNumbers.forEach(number => {
-        const img = document.createElement("img");
+    item.appendChild(preview);
 
-        img.alt = `Color inspiration ${number}`;
-        img.dataset.number = number;
-        img.loading = "lazy";
-        img.decoding = "async";
+    fragment.appendChild(item);
 
-        img.addEventListener("click", function() {
-          showImage(number);
-        });
+  });
 
-        loadImage(
-          img,
-          number,
-          null,
-          function() {
-            img.style.display = "none";
-          }
-        );
+  gallery.appendChild(fragment);
 
-        fragment.appendChild(img);
-      });
+  updateSelectedImage();
 
-      gallery.appendChild(fragment);
-    }
+}
 
-    createGallery();
-    generateAll();
-  </script>
+// START
+
+renderGallery();
+
+generateAll();
+
+</script>
+
 </body>
 </html>
